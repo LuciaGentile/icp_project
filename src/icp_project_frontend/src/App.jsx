@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { icp_project_backend } from 'declarations/icp_project_backend';
+import { icp_project_backend } from '../../declarations/icp_project_backend';
 
 function App() {
   const [inputValue, setInputValue] = useState('');
@@ -7,8 +7,9 @@ function App() {
   async function handleSubmit(event) {
     event.preventDefault();
     const number = event.target.elements.name.value;
-    await icp_project_backend.add_value(number).then((inputValue) => {
-      setInputValue(inputValue);
+    await icp_project_backend.add_value(BigInt(number));
+    await icp_project_backend.get_value().then(sum => {
+      setInputValue(Number(sum))
     });
     return false;
   }
@@ -23,7 +24,7 @@ function App() {
         <input id="name" alt="Name" type="text" />
         <button type="submit">Click Me!</button>
       </form>
-      <section id="greeting">{inputValue}</section>
+      <section id="greeting">Totale : {inputValue}</section>
     </main>
   );
 }

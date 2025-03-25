@@ -1,3 +1,4 @@
 service : {
-    "greet": (text) -> (text) query;
+    "add_value": (int64) -> (int64);
+    "get_value": () -> (int64) query;
 }
