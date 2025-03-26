@@ -1,9 +1,16 @@
 use candid::CandidType;
-use ic_cdk_macros::{update, query};
+use ic_cdk_macros::{init, query, update};
 use std::cell::RefCell;
 
 thread_local! {
     static COUNTER: RefCell<i64> = RefCell::new(0);
+}
+
+#[init]
+fn init() {
+    COUNTER.with(|counter| {
+        *counter.borrow_mut() = CanisterState { somma_totale: 0 };
+    });
 }
 
 #[update]
